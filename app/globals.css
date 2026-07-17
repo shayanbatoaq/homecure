@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #111317;
+  --brand-red: #e71f21;
+  --brand-red-dark: #b91418;
+  --brand-ink: #080b0e;
+  --medical-blue: #dff3f8;
+  --medical-blue-strong: #2d8aa4;
+  --muted: #5f6b77;
+  --surface: #f7fafb;
+  --line: #e6edf0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-dark: var(--brand-red-dark);
+  --color-brand-ink: var(--brand-ink);
+  --color-medical-blue: var(--medical-blue);
+  --color-medical-blue-strong: var(--medical-blue-strong);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: rgba(231, 31, 33, 0.16);
+  color: var(--brand-ink);
+}
+
+input,
+textarea {
+  font: inherit;
+}
