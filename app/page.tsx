@@ -21,17 +21,21 @@ import Image from "next/image";
 import { FaFacebookF, FaInstagram } from "react-icons/fa6";
 import { ContactForm } from "./components/contact-form";
 import { siteImages, type SiteImage } from "@/lib/images";
+import {
+  CONTACT_EMAIL,
+  CONTACT_PHONE,
+  CONTACT_PHONE_E164,
+  EMAIL_LINK,
+  FACEBOOK_LINK,
+  INSTAGRAM_LINK,
+  PHONE_LINK,
+  SEO_DESCRIPTION,
+  SITE_ALTERNATE_NAME,
+  SITE_NAME,
+  SITE_URL,
+  WHATSAPP_LINK,
+} from "@/lib/site";
 import { FadeUp, FloatingPanel, SoftReveal } from "./components/motion";
-
-const CONTACT_EMAIL = "info@homecure.com.pk";
-const CONTACT_PHONE = "+92 336 8328325";
-const WEBSITE_URL = "https://homecure.com.pk";
-const WHATSAPP_LINK =
-  "https://wa.me/923368328325?text=Hello%20HomeCure%2C%20I%20would%20like%20to%20book%20a%20home%20sample%20collection%20visit.";
-const PHONE_LINK = "tel:+923368328325";
-const EMAIL_LINK = `mailto:${CONTACT_EMAIL}`;
-const INSTAGRAM_LINK = "https://www.instagram.com/homecurepak/";
-const FACEBOOK_LINK = "https://www.facebook.com/profile.php?id=61585081491893";
 
 const navigation = [
   { label: "About", href: "#about" },
@@ -50,7 +54,6 @@ const footerContactLinks = [
     icon: MessageCircle,
     external: true,
   },
-  { label: "homecure.com.pk", href: WEBSITE_URL, icon: HomeIcon, external: true },
 ];
 
 const socialLinks = [
@@ -91,7 +94,7 @@ const services = [
 
 const steps = [
   {
-    title: "Contact HomeCure",
+    title: "Contact Home Cure",
     description:
       "Reach out with your sample collection need and your location in Karachi.",
   },
@@ -116,7 +119,7 @@ const benefits = [
   {
     title: "Focused on Sample Collection",
     description:
-      "HomeCure is built around diagnostic sample collection at home, keeping the service clear and dependable.",
+      "Home Cure is built around diagnostic sample collection at home, keeping the service clear and dependable.",
     icon: Stethoscope,
   },
   {
@@ -163,6 +166,125 @@ const floatingCards = [
     delay: 0.65,
   },
 ];
+
+const faqs = [
+  {
+    question: "Does Home Cure provide at-home sample collection in Karachi?",
+    answer:
+      "Yes. Home Cure provides at-home sample collection across Karachi for blood, urine, stool, and sputum samples.",
+  },
+  {
+    question: "How do I book Home Cure sample collection at home?",
+    answer:
+      "You can book through the form, WhatsApp, phone, or email. Share your area, sample type, preferred date, and preferred time slot.",
+  },
+  {
+    question: "Which sample collection services are available?",
+    answer:
+      "Home Cure currently supports blood sample collection, urine sample collection, stool sample collection, and sputum sample collection.",
+  },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["MedicalBusiness", "LocalBusiness"],
+      "@id": `${SITE_URL}/#business`,
+      name: SITE_NAME,
+      alternateName: SITE_ALTERNATE_NAME,
+      url: SITE_URL,
+      logo: `${SITE_URL}${siteImages.logo.src}`,
+      image: `${SITE_URL}${siteImages.hero.src}`,
+      description: SEO_DESCRIPTION,
+      telephone: CONTACT_PHONE_E164,
+      email: CONTACT_EMAIL,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Karachi",
+        addressRegion: "Sindh",
+        addressCountry: "PK",
+      },
+      areaServed: {
+        "@type": "City",
+        name: "Karachi",
+      },
+      serviceArea: {
+        "@type": "AdministrativeArea",
+        name: "Karachi, Sindh",
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ],
+          opens: "09:00",
+          closes: "22:00",
+        },
+      ],
+      sameAs: [INSTAGRAM_LINK, FACEBOOK_LINK],
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          telephone: CONTACT_PHONE_E164,
+          contactType: "customer service",
+          areaServed: "PK-SD",
+          availableLanguage: ["English", "Urdu"],
+        },
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: SITE_NAME,
+      alternateName: SITE_ALTERNATE_NAME,
+      url: SITE_URL,
+      inLanguage: "en-PK",
+      publisher: {
+        "@id": `${SITE_URL}/#business`,
+      },
+    },
+    {
+      "@type": "Service",
+      "@id": `${SITE_URL}/#at-home-sample-collection`,
+      name: "At-home sample collection in Karachi",
+      serviceType: "At-home diagnostic sample collection",
+      description:
+        "Home Cure provides hygienic blood, urine, stool, and sputum sample collection at home across Karachi.",
+      provider: {
+        "@id": `${SITE_URL}/#business`,
+      },
+      areaServed: {
+        "@type": "City",
+        name: "Karachi",
+      },
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Home Cure sample collection services",
+        itemListElement: services.map((service) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: service.title,
+            description: service.description,
+          },
+        })),
+      },
+    },
+  ],
+};
+
+const structuredDataMarkup = JSON.stringify(structuredData).replace(
+  /</g,
+  "\\u003c",
+);
 
 function SectionIntro({
   eyebrow,
@@ -268,9 +390,13 @@ function ImageCard({
 export default function Home() {
   return (
     <main className="bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: structuredDataMarkup }}
+      />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/20 bg-white/90 backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
-          <a href="#" className="flex items-center gap-3" aria-label="HomeCure">
+          <a href="#" className="flex items-center gap-3" aria-label="Home Cure">
             <Image
               src={siteImages.navbarLogo.src}
               alt={siteImages.navbarLogo.alt}
@@ -333,15 +459,15 @@ export default function Home() {
         <div className="relative mx-auto flex min-h-[calc(88svh-5rem)] max-w-7xl items-center px-5 py-20 sm:px-8 lg:px-10">
           <FadeUp className="max-w-3xl">
             <p className="mb-5 inline-flex items-center rounded-full border border-white/20 bg-white/12 px-4 py-2 text-sm font-semibold text-white/90 backdrop-blur">
-              Safe sample collection across Karachi
+              Home Cure sample collection across Karachi
             </p>
             <h1 className="text-balance text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-              Sample Collection at Your Doorstep
+              Home Cure At-Home Sample Collection in Karachi
             </h1>
             <p className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/82 sm:text-xl">
-              HomeCure provides safe, hygienic, and convenient sample collection
-              across Karachi, helping patients avoid unnecessary clinic or lab
-              visits.
+              Home Cure provides safe, hygienic,
+              and convenient sample collection across Karachi, helping patients
+              avoid unnecessary clinic or lab visits.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <PrimaryButton href="#contact">
@@ -365,9 +491,9 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <div>
             <SectionIntro
-              eyebrow="About HomeCure"
+              eyebrow="About Home Cure"
               title="Making Diagnostic Sample Collection Easier at Home"
-              description="HomeCure was created to make essential diagnostic sample collection more convenient for patients and families in Karachi. Our trained healthcare staff visit your home, collect samples safely, and follow strict hygiene practices throughout the process."
+              description="Home Cure was created to make essential diagnostic sample collection more convenient for patients and families in Karachi. Our trained healthcare staff visit your home, collect samples safely, and follow strict hygiene practices throughout the process."
             />
             <FadeUp className="mt-8 grid gap-4 sm:grid-cols-2">
               {[
@@ -400,8 +526,8 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <SectionIntro
             eyebrow="Primary service"
-            title="Our Sample Collection Services"
-            description="HomeCure currently focuses on safe and hygienic at-home sample collection only, with support for the most common diagnostic sample types."
+            title="At-Home Sample Collection Services in Karachi"
+            description="Home Cure currently focuses on safe and hygienic at-home sample collection only, with support for the most common diagnostic sample types."
             align="center"
           />
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -446,7 +572,7 @@ export default function Home() {
                 One focused service, handled with care.
               </h3>
               <p className="mt-5 leading-8 text-white/75">
-                By staying focused on sample collection, HomeCure keeps the
+                By staying focused on sample collection, Home Cure keeps the
                 visit simple, prepared, and centered on hygiene from arrival to
                 handoff.
               </p>
@@ -501,7 +627,7 @@ export default function Home() {
           <div className="self-center">
             <FadeUp>
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-brand-red">
-                Why choose HomeCure
+                Why choose Home Cure
               </p>
               <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
                 Calm, convenient sample collection for Karachi homes.
@@ -573,9 +699,10 @@ export default function Home() {
               Coverage across Karachi
             </h2>
             <p className="mt-5 leading-8 text-muted">
-              HomeCure is designed for patients and families across Karachi who
+              Home Cure is designed for patients and families across Karachi who
               want diagnostic samples collected at home with a safer, calmer
-              process.
+              process. Book at-home sample collection seven days a week, from
+              9:00 AM to 10:00 PM.
             </p>
           </FadeUp>
           <FadeUp className="grid gap-5 sm:grid-cols-3">
@@ -613,6 +740,33 @@ export default function Home() {
               );
             })}
           </FadeUp>
+        </div>
+      </section>
+
+      <section className="px-5 py-24 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <SectionIntro
+            eyebrow="Common questions"
+            title="At-Home Sample Collection FAQs"
+            description="Clear answers for patients and families searching for Home Cure or at-home sample collection in Karachi."
+            align="center"
+          />
+          <div className="mt-14 grid gap-5 lg:grid-cols-3">
+            {faqs.map((faq, index) => (
+              <FadeUp
+                key={faq.question}
+                delay={index * 0.06}
+                className="rounded-3xl border border-line bg-white p-6 shadow-sm"
+              >
+                <h3 className="text-lg font-semibold text-brand-ink">
+                  {faq.question}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-muted">
+                  {faq.answer}
+                </p>
+              </FadeUp>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -656,9 +810,9 @@ export default function Home() {
               className="h-14 w-auto rounded-xl bg-white px-3 py-2"
             />
             <p className="mt-5 leading-8 text-white/68">
-              HomeCure provides safe and convenient at-home sample collection
-              across Karachi, with a focus on hygiene, comfort, and reliable
-              service.
+              Home Cure provides safe and convenient at-home sample
+              collection across Karachi, with a focus on hygiene, comfort, and
+              reliable service.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:justify-self-end">

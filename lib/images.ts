@@ -12,11 +12,11 @@ export type SiteImage = {
 export const siteImages = {
   logo: {
     src: "/images/homecure-logo.png",
-    alt: "HomeCure",
+    alt: "Home Cure",
   },
   navbarLogo: {
     src: "/images/homecure-logo-navbar.png",
-    alt: "HomeCure",
+    alt: "Home Cure",
   },
   hero: {
     // TODO: Use a large premium photo of vacutainers, blood vials, or a sterile
@@ -47,7 +47,7 @@ export const siteImages = {
   contact: {
     // TODO: Use a calm image of a phone, notebook, sample tubes, and medical kit.
     src: "/images/contact-booking-medical-items.jpg",
-    alt: "Contact HomeCure for home sample collection",
+    alt: "Contact Home Cure for home sample collection",
   },
   services: {
     blood: {

@@ -24,7 +24,7 @@ type BookingField = keyof Omit<BookingRequest, "company">;
 
 const successMessage =
   "Your booking request has been sent. We will contact you shortly.";
-const defaultSender = "HomeCure <info@homecure.com.pk>";
+const defaultSender = "Home Cure <info@homecure.com.pk>";
 const defaultRecipient = "info@homecure.com.pk";
 
 const requiredFields: BookingField[] = [
@@ -134,7 +134,7 @@ function getDateLimits() {
 
 function buildTextEmail(payload: Omit<BookingRequest, "company">) {
   return [
-    "New HomeCure booking request",
+    "New Home Cure booking request",
     "",
     ...Object.entries(fieldLabels).map(([key, label]) => {
       const value = payload[key as keyof Omit<BookingRequest, "company">];
@@ -161,7 +161,7 @@ function buildHtmlEmail(payload: Omit<BookingRequest, "company">) {
     <div style="font-family:Arial,sans-serif;background:#f6f8fb;padding:28px;">
       <div style="max-width:680px;margin:0 auto;background:#ffffff;border:1px solid #e8edf2;border-radius:16px;overflow:hidden;">
         <div style="background:#111827;color:#ffffff;padding:24px 28px;">
-          <p style="margin:0 0 6px;color:#f87171;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">HomeCure</p>
+          <p style="margin:0 0 6px;color:#f87171;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">Home Cure</p>
           <h1 style="margin:0;font-size:24px;line-height:1.3;">New booking request</h1>
         </div>
         <table style="width:100%;border-collapse:collapse;">
@@ -324,7 +324,7 @@ export async function POST(request: Request) {
     const { error } = await resend.emails.send({
       from,
       to: recipients,
-      subject: `HomeCure booking request from ${payload.name}`,
+      subject: `Home Cure booking request from ${payload.name}`,
       text: buildTextEmail(emailPayload),
       html: buildHtmlEmail(emailPayload),
     });

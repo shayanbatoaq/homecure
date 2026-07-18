@@ -24,7 +24,7 @@ The booking form sends email through Resend. Add these values to `.env`:
 
 ```bash
 RESEND_API_KEY=re_xxxxxxxxx
-RESEND_FROM_EMAIL="HomeCure <info@homecure.com.pk>"
+RESEND_FROM_EMAIL="Home Cure <info@homecure.com.pk>"
 RESEND_TO_EMAIL=info@homecure.com.pk
 NEXT_PUBLIC_SITE_URL=https://homecure.com.pk
 ```

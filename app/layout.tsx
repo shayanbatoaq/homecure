@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { siteImages } from "@/lib/images";
+import {
+  FACEBOOK_LINK,
+  INSTAGRAM_LINK,
+  SEO_DESCRIPTION,
+  SEO_TITLE,
+  SITE_ALTERNATE_NAME,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,25 +23,49 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://homecure.com.pk",
-  ),
-  title: "HomeCure | Sample Collection at Your Doorstep",
-  description:
-    "HomeCure provides safe, hygienic, and convenient at-home diagnostic sample collection across Karachi.",
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  title: {
+    default: SEO_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SEO_DESCRIPTION,
   keywords: [
-    "HomeCure",
+    "Home Cure",
+    SITE_ALTERNATE_NAME,
     "sample collection Karachi",
+    "at home sample collection",
+    "at-home sample collection Karachi",
+    "home sample collection Karachi",
     "blood sample collection at home",
-    "home healthcare Karachi",
+    "urine sample collection at home",
+    "stool sample collection at home",
+    "sputum sample collection at home",
     "diagnostic sample collection",
   ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/favicon.ico",
+  },
   openGraph: {
-    title: "HomeCure | Sample Collection at Your Doorstep",
-    description:
-      "Safe, hygienic, and convenient sample collection at home across Karachi.",
-    url: "https://homecure.com.pk",
-    siteName: "HomeCure",
+    title: SEO_TITLE,
+    description: SEO_DESCRIPTION,
+    url: "/",
+    siteName: SITE_NAME,
     images: [
       {
         url: siteImages.hero.src,
@@ -46,10 +79,17 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "HomeCure | Sample Collection at Your Doorstep",
-    description:
-      "Safe, hygienic, and convenient sample collection at home across Karachi.",
+    title: SEO_TITLE,
+    description: SEO_DESCRIPTION,
     images: [siteImages.hero.src],
+  },
+  other: {
+    "geo.region": "PK-SD",
+    "geo.placename": "Karachi",
+    "business:contact_data:locality": "Karachi",
+    "business:contact_data:country_name": "Pakistan",
+    "og:see_also": [INSTAGRAM_LINK, FACEBOOK_LINK].join(","),
+    "alternate-brand-name": SITE_ALTERNATE_NAME,
   },
 };
 
