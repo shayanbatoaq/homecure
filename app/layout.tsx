@@ -14,7 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://homecure.com.pk",
+  ),
   title: "HomeCure | Sample Collection at Your Doorstep",
   description:
     "HomeCure provides safe, hygienic, and convenient at-home diagnostic sample collection across Karachi.",
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
     title: "HomeCure | Sample Collection at Your Doorstep",
     description:
       "Safe, hygienic, and convenient sample collection at home across Karachi.",
-    url: "https://homecure.pk",
+    url: "https://homecure.com.pk",
     siteName: "HomeCure",
     images: [
       {

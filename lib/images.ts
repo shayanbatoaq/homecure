@@ -14,6 +14,10 @@ export const siteImages = {
     src: "/images/homecure-logo.png",
     alt: "HomeCure",
   },
+  navbarLogo: {
+    src: "/images/homecure-logo-navbar.png",
+    alt: "HomeCure",
+  },
   hero: {
     // TODO: Use a large premium photo of vacutainers, blood vials, or a sterile
     // medical kit on a clean home table. Avoid faces, injections, IVs, and care scenes.

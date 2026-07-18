@@ -7,6 +7,7 @@ import {
   Droplet,
   HeartPulse,
   HomeIcon,
+  Mail,
   MapPin,
   MessageCircle,
   Microscope,
@@ -17,11 +18,20 @@ import {
   TestTube2,
 } from "lucide-react";
 import Image from "next/image";
+import { FaFacebookF, FaInstagram } from "react-icons/fa6";
+import { ContactForm } from "./components/contact-form";
 import { siteImages, type SiteImage } from "@/lib/images";
 import { FadeUp, FloatingPanel, SoftReveal } from "./components/motion";
 
-const WHATSAPP_LINK = "#contact";
-const PHONE_LINK = "#contact";
+const CONTACT_EMAIL = "info@homecure.com.pk";
+const CONTACT_PHONE = "+92 336 8328325";
+const WEBSITE_URL = "https://homecure.com.pk";
+const WHATSAPP_LINK =
+  "https://wa.me/923368328325?text=Hello%20HomeCure%2C%20I%20would%20like%20to%20book%20a%20home%20sample%20collection%20visit.";
+const PHONE_LINK = "tel:+923368328325";
+const EMAIL_LINK = `mailto:${CONTACT_EMAIL}`;
+const INSTAGRAM_LINK = "https://www.instagram.com/homecurepak/";
+const FACEBOOK_LINK = "https://www.facebook.com/profile.php?id=61585081491893";
 
 const navigation = [
   { label: "About", href: "#about" },
@@ -29,6 +39,23 @@ const navigation = [
   { label: "Safety", href: "#safety" },
   { label: "Coverage", href: "#coverage" },
   { label: "Contact", href: "#contact" },
+];
+
+const footerContactLinks = [
+  { label: CONTACT_EMAIL, href: EMAIL_LINK, icon: Mail },
+  { label: CONTACT_PHONE, href: PHONE_LINK, icon: Phone },
+  {
+    label: "WhatsApp us",
+    href: WHATSAPP_LINK,
+    icon: MessageCircle,
+    external: true,
+  },
+  { label: "homecure.com.pk", href: WEBSITE_URL, icon: HomeIcon, external: true },
+];
+
+const socialLinks = [
+  { label: "Instagram", href: INSTAGRAM_LINK, icon: FaInstagram },
+  { label: "Facebook", href: FACEBOOK_LINK, icon: FaFacebookF },
 ];
 
 const services = [
@@ -191,13 +218,19 @@ function PrimaryButton({
 function SecondaryButton({
   href,
   children,
+  target,
+  rel,
 }: {
   href: string;
   children: React.ReactNode;
+  target?: string;
+  rel?: string;
 }) {
   return (
     <a
       href={href}
+      target={target}
+      rel={rel}
       className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/35 bg-white/12 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:border-white/60 hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/70 focus:ring-offset-2 focus:ring-offset-brand-ink"
     >
       {children}
@@ -239,12 +272,12 @@ export default function Home() {
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
           <a href="#" className="flex items-center gap-3" aria-label="HomeCure">
             <Image
-              src={siteImages.logo.src}
-              alt={siteImages.logo.alt}
-              width={206}
-              height={88}
+              src={siteImages.navbarLogo.src}
+              alt={siteImages.navbarLogo.alt}
+              width={434}
+              height={177}
               priority
-              className="h-12 w-auto"
+              className="h-16 w-auto"
             />
           </a>
           <nav
@@ -315,7 +348,11 @@ export default function Home() {
                 Book a Home Visit
                 <ArrowRight className="h-4 w-4" />
               </PrimaryButton>
-              <SecondaryButton href={WHATSAPP_LINK}>
+              <SecondaryButton
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <MessageCircle className="h-4 w-4" />
                 WhatsApp Us
               </SecondaryButton>
@@ -603,73 +640,13 @@ export default function Home() {
             </div>
           </div>
           <FadeUp className="p-6 sm:p-8 lg:p-10">
-            <form className="grid gap-4">
-              {[
-                { label: "Name", type: "text", name: "name" },
-                { label: "Phone number", type: "tel", name: "phone" },
-                { label: "Area in Karachi", type: "text", name: "area" },
-                {
-                  label: "Required sample/test",
-                  type: "text",
-                  name: "requiredSample",
-                },
-                {
-                  label: "Preferred date/time",
-                  type: "text",
-                  name: "preferredTime",
-                },
-              ].map((field) => (
-                <label key={field.name} className="grid gap-2">
-                  <span className="text-sm font-semibold text-brand-ink">
-                    {field.label}
-                  </span>
-                  <input
-                    name={field.name}
-                    type={field.type}
-                    className="min-h-12 rounded-2xl border border-line bg-surface px-4 text-brand-ink outline-none transition placeholder:text-muted/60 focus:border-brand-red focus:bg-white focus:ring-4 focus:ring-brand-red/10"
-                  />
-                </label>
-              ))}
-              <label className="grid gap-2">
-                <span className="text-sm font-semibold text-brand-ink">
-                  Message
-                </span>
-                <textarea
-                  name="message"
-                  rows={4}
-                  className="resize-none rounded-2xl border border-line bg-surface px-4 py-3 text-brand-ink outline-none transition placeholder:text-muted/60 focus:border-brand-red focus:bg-white focus:ring-4 focus:ring-brand-red/10"
-                />
-              </label>
-              <div className="mt-3 flex flex-col gap-3 sm:flex-row">
-                <button
-                  type="submit"
-                  className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(231,31,33,0.24)] transition hover:-translate-y-0.5 hover:bg-brand-red-dark"
-                >
-                  Send Booking Request
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-                <a
-                  href={WHATSAPP_LINK}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-semibold text-brand-ink transition hover:-translate-y-0.5 hover:border-brand-red hover:text-brand-red"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  WhatsApp
-                </a>
-                <a
-                  href={PHONE_LINK}
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-semibold text-brand-ink transition hover:-translate-y-0.5 hover:border-brand-red hover:text-brand-red"
-                >
-                  <Phone className="h-4 w-4" />
-                  Call
-                </a>
-              </div>
-            </form>
+            <ContactForm whatsappHref={WHATSAPP_LINK} phoneHref={PHONE_LINK} />
           </FadeUp>
         </div>
       </section>
 
       <footer className="border-t border-line bg-brand-ink px-5 py-12 text-white sm:px-8 lg:px-10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="max-w-xl">
             <Image
               src={siteImages.logo.src}
@@ -684,12 +661,64 @@ export default function Home() {
               service.
             </p>
           </div>
-          <div className="flex flex-wrap gap-5 text-sm text-white/70">
-            {navigation.map((item) => (
-              <a key={item.href} href={item.href} className="hover:text-white">
-                {item.label}
-              </a>
-            ))}
+          <div className="grid gap-8 sm:grid-cols-2 lg:justify-self-end">
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
+                Contact
+              </h3>
+              <div className="mt-5 grid gap-3 text-sm text-white/72">
+                {footerContactLinks.map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      target={item.external ? "_blank" : undefined}
+                      rel={item.external ? "noreferrer" : undefined}
+                      className="inline-flex items-center gap-3 transition hover:text-white"
+                    >
+                      <Icon className="h-4 w-4 shrink-0 text-brand-red" />
+                      <span>{item.label}</span>
+                    </a>
+                  );
+                })}
+              </div>
+              <div className="mt-5 flex gap-3">
+                {socialLinks.map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={item.label}
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/8 text-white transition hover:-translate-y-0.5 hover:border-brand-red hover:bg-brand-red"
+                    >
+                      <Icon className="h-4 w-4" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
+                Explore
+              </h3>
+              <div className="mt-5 grid gap-3 text-sm text-white/72">
+                {navigation.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="transition hover:text-white"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </footer>
