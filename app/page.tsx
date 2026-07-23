@@ -800,79 +800,95 @@ export default function Home() {
       </section>
 
       <footer className="border-t border-line bg-brand-ink px-5 py-12 text-white sm:px-8 lg:px-10">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="max-w-xl">
-            <Image
-              src={siteImages.logo.src}
-              alt={siteImages.logo.alt}
-              width={206}
-              height={88}
-              className="h-14 w-auto rounded-xl bg-white px-3 py-2"
-            />
-            <p className="mt-5 leading-8 text-white/68">
-              Home Cure provides safe and convenient at-home sample
-              collection across Karachi, with a focus on hygiene, comfort, and
-              reliable service.
-            </p>
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="max-w-xl">
+              <Image
+                src={siteImages.logo.src}
+                alt={siteImages.logo.alt}
+                width={206}
+                height={88}
+                className="h-14 w-auto rounded-xl bg-white px-3 py-2"
+              />
+              <p className="mt-5 leading-8 text-white/68">
+                Home Cure provides safe and convenient at-home sample
+                collection across Karachi, with a focus on hygiene, comfort,
+                and reliable service.
+              </p>
+            </div>
+            <div className="grid gap-8 sm:grid-cols-2 lg:justify-self-end">
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
+                  Contact
+                </h3>
+                <div className="mt-5 grid gap-3 text-sm text-white/72">
+                  {footerContactLinks.map((item) => {
+                    const Icon = item.icon;
+
+                    return (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        target={item.external ? "_blank" : undefined}
+                        rel={item.external ? "noreferrer" : undefined}
+                        className="inline-flex items-center gap-3 transition hover:text-white"
+                      >
+                        <Icon className="h-4 w-4 shrink-0 text-brand-red" />
+                        <span>{item.label}</span>
+                      </a>
+                    );
+                  })}
+                </div>
+                <div className="mt-5 flex gap-3">
+                  {socialLinks.map((item) => {
+                    const Icon = item.icon;
+
+                    return (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={item.label}
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/8 text-white transition hover:-translate-y-0.5 hover:border-brand-red hover:bg-brand-red"
+                      >
+                        <Icon className="h-4 w-4" />
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
+                  Explore
+                </h3>
+                <div className="mt-5 grid gap-3 text-sm text-white/72">
+                  {navigation.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="transition hover:text-white"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:justify-self-end">
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
-                Contact
-              </h3>
-              <div className="mt-5 grid gap-3 text-sm text-white/72">
-                {footerContactLinks.map((item) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      target={item.external ? "_blank" : undefined}
-                      rel={item.external ? "noreferrer" : undefined}
-                      className="inline-flex items-center gap-3 transition hover:text-white"
-                    >
-                      <Icon className="h-4 w-4 shrink-0 text-brand-red" />
-                      <span>{item.label}</span>
-                    </a>
-                  );
-                })}
-              </div>
-              <div className="mt-5 flex gap-3">
-                {socialLinks.map((item) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={item.label}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/8 text-white transition hover:-translate-y-0.5 hover:border-brand-red hover:bg-brand-red"
-                    >
-                      <Icon className="h-4 w-4" />
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">
-                Explore
-              </h3>
-              <div className="mt-5 grid gap-3 text-sm text-white/72">
-                {navigation.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className="transition hover:text-white"
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </div>
-            </div>
+          <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-sm text-white/55 sm:flex-row sm:items-center sm:justify-between">
+            <p>&copy; {new Date().getFullYear()} Home Cure. All rights reserved.</p>
+            <p>
+              Powered by{" "}
+              <a
+                href="https://patricians.pk"
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-white/80 transition hover:text-white"
+              >
+                Patricians
+              </a>
+            </p>
           </div>
         </div>
       </footer>
